@@ -6,11 +6,11 @@
 	{
 		protected $Whatsapp = null;
 
-		public function __construct($DB_H, $DB_U, $DB_P, $DB_D, $WP_U, $WP_I, $WP_P, $WP_N)
+		public function __construct($DB_H, $DB_U, $DB_P, $DB_D, $WP_U, $WP_I, $WP_P, $WP_N, Catcher &$C = null, Logger &$L = null)
 		{
 			try
 			{
-				parent::__construct($DB_H, $DB_U, $DB_P, $DB_D);
+				parent::__construct($DB_H, $DB_U, $DB_P, $DB_D, $C, $L);
 
 				$this->Whatsapp = new WhatsProt($WP_U, $WP_I, $WP_N);
 				$this->Whatsapp->connect();

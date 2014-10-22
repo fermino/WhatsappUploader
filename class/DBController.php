@@ -1,7 +1,7 @@
 <?php
-	require_once 'DBCore.php';
+	require_once 'DBModel.php';
 
-	class DBController extends DBCore
+	class DBController extends DBModel
 	{
 		// DEFINE $LIMITS AND MAKE A __CONSTRUCT?
 

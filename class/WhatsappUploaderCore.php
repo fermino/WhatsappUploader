@@ -10,11 +10,11 @@
 		protected $MaxFileSize = null;
 		protected $Limits = null;
 
-		public function __construct($DB_H, $DB_U, $DB_P, $DB_D, $WP_U, $WP_I, $WP_P, $WP_N, $D, $MIME, $Limits, $UP = 'uploads', $MFS = 8388608)
+		public function __construct($DB_H, $DB_U, $DB_P, $DB_D, $WP_U, $WP_I, $WP_P, $WP_N, $D, $MIME, $Limits, Catcher &$C = null, Logger &$L = null, $UP = 'uploads', $MFS = 8388608)
 		{
 			try
 			{
-				parent::__construct($DB_H, $DB_U, $DB_P, $DB_D, $WP_U, $WP_I, $WP_P, $WP_N);
+				parent::__construct($DB_H, $DB_U, $DB_P, $DB_D, $WP_U, $WP_I, $WP_P, $WP_N, $C, $L);
 
 				$this->Domain = $D;
 				$this->MIMETypes = $MIME;
