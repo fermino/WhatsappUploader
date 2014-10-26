@@ -1,6 +1,6 @@
 <?php
 	require_once 'WhatsappParser.php';
-	//require_once 'utils/array_column.php';
+	require_once 'utils/array_column.php';
 
 	abstract class WhatsappUploaderCore extends WhatsappParser
 	{
