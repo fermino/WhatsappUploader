@@ -99,10 +99,21 @@
 							'data' => $R
 						);
 						break;
+					case 'audio':
+						$R = self::ParsemediaMessage_Audio($Media);
+
+						return array
+						(
+							'success' => true,
+							'type' => 'audio',
+							'data' => $R
+						);
+						break;
 					default:
 						return array
 						(
-							'success' => false, 'msg' => 'media_type_not_supported',
+							'success' => false,
+							'msg' => 'media_type_not_supported'
 						);
 						break;
 				}
@@ -133,6 +144,25 @@
 			{
 				trigger_error('Error: WhatsappParser, ParseMediaMessage_Image: ' . $E->getMessage(), E_USER_ERROR);
 			}
-			
+		}
+
+		protected function ParsemediaMessage_Audio($Media)
+		{
+			return array
+			(
+				'encoding' => ($Media->getAttribute('encoding')) ? $Media->getAttribute('encoding') : null,
+				'origin' => ($Media->getAttribute('origin')) ? $Media->getAttribute('origin') : null,
+				'url' => ($Media->getAttribute('url')) ? $Media->getAttribute('url') : null,
+				//'file' => ($Media->getAttribute('')) ? $Media->getAttribute('') : null,
+				'size' => ($Media->getAttribute('size')) ? $Media->getAttribute('size') : null,
+				'seconds' => ($Media->getAttribute('seconds')) ? $Media->getAttribute('seconds') : null,
+				'ip' => ($Media->getAttribute('ip')) ? $Media->getAttribute('ip') : null,
+				'mime' => ($Media->getAttribute('mimetype')) ? $Media->getAttribute('mimetype') : null,
+				'hash' => ($Media->getAttribute('filehash')) ? $Media->getAttribute('filehash') : null,
+				'duration' => ($Media->getAttribute('duration')) ? $Media->getAttribute('duration') : null,
+				'codec' => ($Media->getAttribute('acodec')) ? $Media->getAttribute('acodec') : null,
+				'freq' => ($Media->getAttribute('asampfreq')) ? $Media->getAttribute('asampfreq') : null,
+				'bitrate' => ($Media->getAttribute('abitrate')) ? $Media->getAttribute('abitrate') : null,
+			);
 		}
 	}
