@@ -3,7 +3,14 @@
 
 	class DBController extends DBModel
 	{
-		// DEFINE $LIMITS AND MAKE A __CONSTRUCT?
+		protected $Limits = null;
+
+		public function __construct($DB_H, $DB_U, $DB_P, $DB_D, $Limits, Catcher &$C = null, Logger &$L = null)
+		{
+			parent::__construct($DB_H, $DB_U, $DB_P, $DB_D, $C, $L);
+
+			$this->Limits = $Limits;
+		}
 
 		public function CheckIfCanUpload($Type, $UID)
 		{

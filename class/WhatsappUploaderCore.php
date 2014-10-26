@@ -8,19 +8,17 @@
 		protected $MIMETypes = null;
 		protected $UploadPath = null;
 		protected $MaxFileSize = null;
-		protected $Limits = null;
 
 		public function __construct($DB_H, $DB_U, $DB_P, $DB_D, $WP_U, $WP_I, $WP_P, $WP_N, $D, $MIME, $Limits, Catcher &$C = null, Logger &$L = null, $UP = 'uploads', $MFS = 8388608)
 		{
 			try
 			{
-				parent::__construct($DB_H, $DB_U, $DB_P, $DB_D, $WP_U, $WP_I, $WP_P, $WP_N, $C, $L);
+				parent::__construct($DB_H, $DB_U, $DB_P, $DB_D, $WP_U, $WP_I, $WP_P, $WP_N, $Limits, $C, $L);
 
 				$this->Domain = $D;
 				$this->MIMETypes = $MIME;
 				$this->UploadPath = trim($UP, '/\\');
 				$this->MaxFileSize = intval($MFS);
-				$this->Limits = $Limits;
 				
 				if(!is_dir($this->UploadPath))
 					if(!mkdir($this->UploadPath))
