@@ -76,7 +76,44 @@
 											$this->Whatsapp->sendMessage($M['from'], 'Image uploaded to ' . $FinalURL);
 										}
 										else if($Can == -1)
-											$this->Whatsapp->sendMessage($M['from'], 'Has alcanzado el límite de imágenes en el modo gratuito. Envía un mensaje con "register" <contraseña> para registrarte...');
+											$this->Whatsapp->sendMessage($M['from'], 'Has alcanzado el límite de imágenes en el modo gratuito. Envía un mensaje con "register <contraseña>" para registrarte...');
+										else if($Can == -2)
+											$this->Whatsapp->sendMessage($M['from'], 'Mejora tu plan para poder cargar éste tipo de archivo...');
+									}
+									break;
+								case 'audio':// Posible audio-live
+									$Data = file_get_contents($M['data']['url']);
+
+									$Filename = self::uploadAudio($Data);
+
+									if($Filename === -1)
+										$this->Whatsapp->sendMessage($M['from'], 'That audio is too big...');
+									else if($Filename === -2)
+										$this->Whatsapp->sendMessage($M['from'], 'That audio type is not supported...');
+									else
+									{
+										$M['from'] = str_replace('@s.whatsapp.net', '', $M['from']);
+
+										$UID = self::GetUIDFromPhone($M['from']);
+										if(!$UID)
+										{
+											self::RegisterNull($M['from']);
+
+											$UID = self::GetUIDFromPhone($M['from']);
+										}
+
+										$Can = self::CheckIfCanUpload('audio', $UID);
+
+										if($Can == true)
+										{
+											// ADD TO BD
+
+											$FinalURL = $this->Domain . '/' . str_replace('\\', '/', $Filename);
+
+											$this->Whatsapp->sendMessage($M['from'], 'Audio uploaded to ' . $FinalURL);
+										}
+										else if($Can == -1)
+											$this->Whatsapp->sendMessage($M['from'], 'Has alcanzado el límite de audios en el modo gratuito. Envía un mensaje con "register <contraseña>" para registrarte...');
 										else if($Can == -2)
 											$this->Whatsapp->sendMessage($M['from'], 'Mejora tu plan para poder cargar éste tipo de archivo...');
 									}

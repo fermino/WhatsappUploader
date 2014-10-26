@@ -66,6 +66,30 @@
 			}
 		}
 
+		protected function uploadAudio($Data) // Y si evitamos todo el bardo de finfo mimetype, y diréctamente obtenemos eso de whatsapi? (O lo testeamos fuera del uploader)
+		{
+			if(strlen($Data) < $this->MaxFileSize)
+			{
+				$MIME = self::getMIMEType($Data);
+
+				if(in_array($MIME, array_column($this->MIMETypes['audio'], 'mime')))
+				{
+					$Extension = self::getMIMEExtension('audio', $MIME);
+					if(!$Extension)
+						trigger_error('MIME types are not defined correctly', E_USER_ERROR);
+
+					$Filename = self::generateFilename($Extension);
+
+					if(!file_put_contents($Filename, $Data))
+						trigger_error('Can\'t save audio to file', E_USER_ERROR);
+
+					return $Filename;
+				}
+				return -2;
+			}
+			return -1;
+		}
+
 		protected function getMIMEType($Data)
 		{
 			try

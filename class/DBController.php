@@ -18,6 +18,8 @@
 
 			if($Type == 'image')
 				$Table = 'images';
+			else if($Type == 'audio')
+				$Table = 'audios';
 			// OTHERS... (SWITCH?)
 
 			$Count = $this->DB->prepare("SELECT COUNT(*) FROM `{$Table}` WHERE `userid` = :uid");
